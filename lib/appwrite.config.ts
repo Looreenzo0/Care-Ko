@@ -1,5 +1,5 @@
 // lib/appwrite.config.ts
-import { Client, Databases, Storage, Users } from "node-appwrite";
+import { Client, Databases, Messaging, Storage, Users } from "node-appwrite";
 
 const client = new Client();
 const endpoint = process.env.NEXT_PUBLIC_ENDPOINT!;
@@ -19,12 +19,14 @@ client
 const databases = new Databases(client);
 const storage = new Storage(client);
 const users = new Users(client);
+const messaging = new Messaging(client);
 
 export {
   client,
   databases,
   storage,
   users,
+  messaging,
   endpoint,
   projectId,
   DATABASE_ID,
