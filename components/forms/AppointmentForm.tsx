@@ -19,6 +19,8 @@ import {
   updateAppointment,
 } from "@/lib/actions/appointment.action";
 import { Appointment } from "@/types/appwrite.types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AppointmentForm = ({
   userId,
@@ -31,7 +33,7 @@ const AppointmentForm = ({
   patientId: string;
   type: "create" | "cancel" | "schedule";
   appointment?: Appointment;
-  setOpen: (open: boolean) => void;
+  setOpen?: (open: boolean) => void;
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -82,6 +84,7 @@ const AppointmentForm = ({
           router.push(
             `/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`
           );
+          toast.success("Appointment created successfully!");
         }
       } else {
         const appointmentToUpdate = {
@@ -101,6 +104,11 @@ const AppointmentForm = ({
         if (updatedAppointment) {
           setOpen && setOpen(false);
           form.reset();
+          if (type === "cancel") {
+            toast.success("Appointment cancelled successfully!");
+          } else {
+            toast.success("Appointment scheduled successfully!");
+          }
         }
       }
     } catch (error) {
