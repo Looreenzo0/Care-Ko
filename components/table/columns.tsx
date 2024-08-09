@@ -47,14 +47,20 @@ export const columns: ColumnDef<Appointment>[] = [
       );
       return (
         <div className="flex items-center gap-3">
-          <Image
-            src={doctor?.image}
-            alt={doctor.name}
-            width={100}
-            height={100}
-            className="size-8"
-          />
-          <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+          {doctor?.image ? (
+            <Image
+              src={doctor.image}
+              alt={doctor.name}
+              width={100}
+              height={100}
+              className="size-8"
+            />
+          ) : (
+            <div className="w-[100px] h-[100px] bg-gray-200 flex items-center justify-center">
+              No Image
+            </div>
+          )}
+          <p className="whitespace-nowrap">Dr. {doctor?.name || "Unknown"}</p>
         </div>
       );
     },
