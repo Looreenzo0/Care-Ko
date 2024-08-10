@@ -98,6 +98,7 @@ export const updateAppointment = async ({
     if (!updatedAppointment) {
       throw new Error("Appointment not found");
     }
+
     // TODO SMS notification
     const smsMessage = `
     Hi, its Care Ko. 
@@ -107,7 +108,9 @@ export const updateAppointment = async ({
             formatDateTime(appointment.schedule!).dateTime
           } with Dr. ${appointment.primaryPhysician}
           }`
-        : `We regret to inform you that your appointment has been cancelled for the 
+        : `We regret to inform you that your appointment for ${
+            formatDateTime(appointment.schedule!).dateTime
+          } has been cancelled for the 
         following reason: 
       ${appointment.cancellationReason}`
     }`;
